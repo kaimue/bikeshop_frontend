@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Searchbar from "../Searchbar/Searchbar";
 
 function Products({ products, pushProducts }) {
@@ -8,8 +9,16 @@ function Products({ products, pushProducts }) {
     } else {
       return products.map((product) => (
         <div>
-          <h1>{product.title}</h1>
-          <p>{product.description}</p>
+          <Link to={product.title}>
+            <div>
+              <h1>{product.title}</h1>
+              <img
+                src={product.imgUrl}
+                alt={product.title}
+                className="prevImage"
+              />
+            </div>
+          </Link>
         </div>
       ));
     }

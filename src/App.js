@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Products from "./components/Products/Products.js";
 import SingleProduct from "./components/SingleProduct/SingleProduct.js";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -29,10 +30,23 @@ const App = () => {
 
   return (
     <div>
-      <Products
-        products={products}
-        pushProducts={(data) => setProducts(data)}
-      />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Products
+                products={products}
+                pushProducts={(data) => setProducts(data)}
+              />
+            }
+          />
+          <Route
+            path="/:title"
+            element={<SingleProduct products={products} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

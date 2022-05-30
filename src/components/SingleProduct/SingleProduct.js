@@ -1,14 +1,19 @@
 import React from "react";
+import Searchbar from "../Searchbar/Searchbar";
 
-function SingleProduct({ products }) {
+function SingleProduct({ products, pushProducts }) {
+  const tagName = window.location.pathname.split("/").pop();
+
+  const product = products.find((product) => product.title === tagName);
   return (
     <div>
-      {products.map((product) => (
-        <div>
-          <h1>{product.title}</h1>
-          <p>{product.description}</p>
-        </div>
-      ))}
+      <div>
+        <Searchbar pushProducts={pushProducts}></Searchbar>
+        <h1>{product.title}</h1>
+        <img src={product.imgUrl} alt={product.title} className="Image" />
+        <p>{product.description}</p>
+        <p>{product.price} €</p>
+      </div>
     </div>
   );
 }
