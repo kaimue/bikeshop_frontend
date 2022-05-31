@@ -1,9 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Searchbar from "../Searchbar/Searchbar";
-import Header from "../Header/Header";
-import LoginButton from "../LoginButton/LoginButton";
-import CartButton from "../CartButton/CartButton";
 
 function Cart({ products, pushProducts }) {
   const displayedProducts = () => {
@@ -23,13 +19,7 @@ function Cart({ products, pushProducts }) {
     }
   };
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <Header className="col" />
-        <LoginButton className="col-6" />
-        <CartButton className="col" />
-      </div>
-      <Searchbar pushProducts={pushProducts}></Searchbar>
+    <div className="container">
       <div>{displayedProducts()}</div>
     </div>
   );

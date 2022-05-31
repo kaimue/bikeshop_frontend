@@ -32,7 +32,7 @@ const RandomProducts = () => {
           <div className="col">
             <Link to={product._id}>
               <div>
-                <h1>{product.title}</h1>
+                <h2>{product.title}</h2>
                 <img
                   src={product.imgUrl}
                   alt={product.title}

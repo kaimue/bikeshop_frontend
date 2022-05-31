@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Products from "./components/Products/Products.js";
+import React from "react";
 import SingleProduct from "./components/SingleProduct/SingleProduct.js";
 import Login from "./components/Login/Login.js";
 import { Routes, Route } from "react-router-dom";
@@ -8,16 +7,16 @@ import Cart from "./components/Cart/Cart.js";
 import SignUp from "./components/SignUp/SignUp.js";
 import { Layout } from "./components/Layout/Layout.js";
 import RandomProducts from "./components/RandomProducts/RandomProducts.js";
+import Categorie from "./components/Categorie/Categorie.js";
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-
   return (
     <div>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<RandomProducts />} />
-          <Route path="home/:title" element={<SingleProduct />} />
+          <Route path="home/:_id" element={<SingleProduct />} />
+          <Route path="home/categorie/:categorie" element={<Categorie />} />
         </Route>
         <Route path="/user">
           <Route path="cart" element={<Cart />} />

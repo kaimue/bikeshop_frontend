@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Searchbar from "../Searchbar/Searchbar";
 
-function SingleProduct() {
+function Categorie() {
   const [products, setProducts] = useState([]);
   const tagName = window.location.pathname.split("/").pop();
   console.log(tagName);
   useEffect(() => {
-    const searchProducts = async () => {
-      const url = `http://localhost:5000/products/byId?q=${tagName}`;
+    const getCategorie = async () => {
+      const url = `http://localhost:5000/categorie/?q=${tagName}`;
       try {
         const res = await fetch(url);
         console.log(res);
@@ -22,7 +21,7 @@ function SingleProduct() {
         console.log(e.message);
       }
     };
-    searchProducts();
+    getCategorie();
   }, [tagName]);
   return (
     <div>
@@ -41,4 +40,4 @@ function SingleProduct() {
   );
 }
 
-export default SingleProduct;
+export default Categorie;
