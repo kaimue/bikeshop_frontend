@@ -24,15 +24,13 @@ const Searchbar = ({ pushProducts }) => {
   }, [wordQuery]);
 
   return (
-    <div>
-      <div>
-        <label>Search:</label>
-        <input
-          onChange={(event) => setWordQuery(event.target.value)}
-          type="text"
-          placeholder="Search for recipies ..."
-        />
-      </div>
+    <div class="container">
+      <input
+        class="form-control"
+        onChange={(event) => setWordQuery(event.target.value)}
+        type="text"
+        placeholder="Search for products ..."
+      />
     </div>
   );
 };
