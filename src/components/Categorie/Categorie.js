@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-function Categorie() {
+function Categorie(categorie) {
   const [products, setProducts] = useState([]);
   const tagName = window.location.pathname.split("/").pop();
-  console.log(tagName);
-  useEffect(() => {
+
+  console.log();
+  useEffect((categorie) => {
     const getCategorie = async () => {
-      const url = `http://localhost:5000/categorie/?q=${tagName}`;
+      const url = `http://localhost:5000/products/categorie/${tagName}`;
       try {
         const res = await fetch(url);
         console.log(res);
@@ -22,7 +23,8 @@ function Categorie() {
       }
     };
     getCategorie();
-  }, [tagName]);
+  }, []);
+
   return (
     <div>
       {products.map((product) => (

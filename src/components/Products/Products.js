@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Searchbar from "../Searchbar/Searchbar";
-import Header from "../Header/Header";
-import LoginButton from "../LoginButton/LoginButton";
-import CartButton from "../CartButton/CartButton";
+import SingleProduct from "../SingleProduct/SingleProduct";
 
 function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "http://localhost:5000/randomProducts";
+      const url = "http://localhost:5000/products";
       try {
         const res = await fetch(url);
-        console.log(res);
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
           setProducts(data);
         } else {
           console.error("Fetch error!");
@@ -34,9 +29,9 @@ function Products() {
       return <p>No products found</p>;
     } else {
       return products.map((product) => (
-        <div>
-          <Link to={product.title}>
-            <div className="container border" key={product._id}>
+        <div key={product._id}>
+          <Link to={product._id}>
+            <div className="container border">
               <h1>{product.title}</h1>
               <img
                 src={product.imgUrl}

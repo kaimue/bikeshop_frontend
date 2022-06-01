@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Searchbar from "../Searchbar/Searchbar";
 
 function SingleProduct() {
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({});
   const tagName = window.location.pathname.split("/").pop();
   console.log(tagName);
   useEffect(() => {
     const searchProducts = async () => {
-      const url = `http://localhost:5000/products/byId?q=${tagName}`;
+      const url = `http://localhost:5000/products/single/${tagName}`;
       try {
         const res = await fetch(url);
         console.log(res);
         if (res.ok) {
           const data = await res.json();
-          setProducts(data);
+          console.log(data);
+          setProduct(data);
         } else {
           console.error("Fetch error!");
           return "No products found!!";
@@ -26,17 +26,15 @@ function SingleProduct() {
   }, [tagName]);
   return (
     <div>
-      {products.map((product) => (
-        <div>
-          <h1>{product.title}</h1>
-          <img src={product.imgUrl} alt={product.title} className="Image" />
-          <p>{product.description}</p>
-          <p>{product.price} €</p>
-          <button className="btn btn-info" type="button">
-            Add to cart
-          </button>
-        </div>
-      ))}
+      <div>
+        <h1>{product.title}</h1>
+        <img src={product.imgUrl} alt={product.title} className="Image" />
+        <p>{product.description}</p>
+        <p>{product.price} €</p>
+        <button className="btn btn-info" type="button">
+          Add to cart
+        </button>
+      </div>
     </div>
   );
 }

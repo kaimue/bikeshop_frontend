@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Searchbar = ({ pushProducts }) => {
+const Searchbar = () => {
   const [wordQuery, setWordQuery] = useState("");
 
   useEffect(() => {
@@ -8,10 +8,7 @@ const Searchbar = ({ pushProducts }) => {
       const url = `http://localhost:5000/products/search?q=${wordQuery}`;
       try {
         const res = await fetch(url);
-        console.log(res);
         if (res.ok) {
-          const data = await res.json();
-          pushProducts(data);
         } else {
           console.error("Fetch error!");
           return "No products found!!";
@@ -24,9 +21,9 @@ const Searchbar = ({ pushProducts }) => {
   }, [wordQuery]);
 
   return (
-    <div class="container">
+    <div className="container">
       <input
-        class="form-control"
+        className="form-control"
         onChange={(event) => setWordQuery(event.target.value)}
         type="text"
         placeholder="Search for products ..."

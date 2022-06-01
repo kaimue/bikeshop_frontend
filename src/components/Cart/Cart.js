@@ -18,6 +18,7 @@ function Cart({ products, pushProducts }) {
       ));
     }
   };
+
   return (
     <div className="container">
       <div>{displayedProducts()}</div>

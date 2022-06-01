@@ -6,8 +6,10 @@ import "./App.css";
 import Cart from "./components/Cart/Cart.js";
 import SignUp from "./components/SignUp/SignUp.js";
 import { Layout } from "./components/Layout/Layout.js";
-import RandomProducts from "./components/RandomProducts/RandomProducts.js";
+
 import Categorie from "./components/Categorie/Categorie.js";
+import Products from "./components/Products/Products";
+import RandomProducts from "./components/RandomProducts/RandomProducts.js";
 
 const App = () => {
   return (
