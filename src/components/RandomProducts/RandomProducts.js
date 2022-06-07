@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../redux/reducers/products";
 
-const RandomProducts = () => {
-  const [products, setProducts] = useState([]);
+const RandomProducts = (displayedProducts) => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
+  console.log(products);
+  const [loading, setLoading] = useState(true);
+  const [render, setRender] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const url = "http://localhost:5000/products/randomProducts";
       try {
+        setLoading(true);
         const res = await fetch(url);
         console.log(res);
         if (res.ok) {
           const data = await res.json();
-          setProducts(data);
+          console.log(data);
+          dispatch(setProducts(data));
+          setLoading(false);
         } else {
           console.error("Fetch error!");
           alert("There has been an error!");
@@ -22,28 +31,45 @@ const RandomProducts = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [render]);
 
-  return (
-    <div className="container">
-      <div className="row">
-        {products.map((product) => (
-          <div className="col">
-            <Link to={product._id}>
-              <div>
-                <h2>{product.title}</h2>
-                <img
-                  src={product.imgUrl}
-                  alt={product.title}
-                  className="prevImage"
-                />
-                <p>{product.price} €</p>
+  const renderFunc = () => {
+    if (loading) {
+      return (
+        <div className="container">
+          <p>Site is loading...</p>
+        </div>
+      );
+    } else if (products.length === 0) {
+      return "No products found!!";
+    } else {
+      return (
+        <div className="container">
+          <div className="row">
+            {products.map((product) => (
+              <div className="col">
+                <Link
+                  to={product._id}
+                  className="list-group-item list-group-item-action"
+                >
+                  <div>
+                    <h2>{product.title}</h2>
+                    <img
+                      src={product.imgUrl}
+                      alt={product.title}
+                      className="prevImage"
+                    />
+                    <p>{product.price} €</p>
+                  </div>
+                </Link>
               </div>
-            </Link>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+      );
+    }
+  };
+
+  return <div className="container">{renderFunc()}</div>;
 };
 export default RandomProducts;

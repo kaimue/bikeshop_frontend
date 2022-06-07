@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../redux/reducers/products";
 
 const Searchbar = () => {
   const [wordQuery, setWordQuery] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const searchProducts = async () => {
-      const url = `http://localhost:5000/products/search?q=${wordQuery}`;
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-        } else {
-          console.error("Fetch error!");
-          return "No products found!!";
+    if (wordQuery.length > 1) {
+      const searchProducts = async () => {
+        const url = `http://localhost:5000/products/search?q=${wordQuery}`;
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            dispatch(setProducts(data));
+          } else {
+            console.error("Fetch error!");
+            return "No products found!!";
+          }
+        } catch (e) {
+          console.log(e.message);
         }
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-    searchProducts();
+      };
+      searchProducts();
+    }
   }, [wordQuery]);
 
   return (

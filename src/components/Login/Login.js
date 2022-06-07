@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { login } from "../../redux/reducers/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const count = useSelector((state) => state.auth.token);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   loginFunc(email, password);
-  // };
 
   const loginFunc = async (event) => {
     console.log("login");
@@ -27,7 +24,8 @@ const Login = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+        dispatch(login({ token: data }));
+        localStorage.setItem("token", data);
       } else {
         console.error("Fetch error!");
         alert("There has been an error!");
@@ -39,38 +37,57 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={loginFunc}>
-        <label htmlFor="email">email:</label>
-        <br></br>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          placeholder="email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <br></br>
-        <label htmlFor="password">password:</label>
-        <br></br>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <br></br>
-        <input type="submit" value="Submit" />
-        <br></br>
-        <label htmlFor="signUp">No account yet? Sign up here.</label>
-        <Link to="/user/signup">
-          <button className="btn btn-info" type="button">
-            Sign up
-          </button>
-        </Link>
-        <br></br>
-      </form>
+    <div className="card">
+      <div className="container">
+        <div className="mb-3 card-item">
+          <form onSubmit={loginFunc}>
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
+            <br></br>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="email"
+              onChange={(event) => setEmail(event.target.value)}
+              className="form-control"
+            />
+            <br></br>
+            <label htmlFor="password" className="form-label">
+              Password:
+            </label>
+            <br></br>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="password"
+              onChange={(event) => setPassword(event.target.value)}
+              className="form-control"
+            />
+            <br></br>
+            <button
+              type="submit"
+              value="Submit"
+              className="btn btn-outline-dark"
+            >
+              Login
+            </button>
+            <br></br>
+            <label htmlFor="signUp" className="form-label">
+              No account yet? Sign up here.
+            </label>
+            <br></br>
+            <Link to="/user/signup">
+              <button className="btn btn-outline-dark" type="button">
+                Sign up
+              </button>
+            </Link>
+            <br></br>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Cart({ products, pushProducts }) {
+function Cart() {
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
+
   const displayedProducts = () => {
-    if (products.length === 0) {
+    if (cartProducts.length === 0) {
       return <p>There are no products in your cart</p>;
     } else {
-      return products.map((product) => (
+      return cartProducts.map((product) => (
         <div>
-          <Link to={product.title}>
+          <Link
+            to={product.title}
+            className="list-group-item list-group-item-action"
+          >
             <div className="container border">
               <h1>{product.title}</h1>
               <p>{product.price} €</p>

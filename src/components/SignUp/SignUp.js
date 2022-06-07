@@ -1,10 +1,12 @@
-import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../redux/reducers/auth";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -33,7 +35,8 @@ const SignUp = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+        dispatch(login({ token: data }));
+        localStorage.setItem("token", data);
       } else {
         console.error("Fetch error!");
         alert("There has been an error!");
@@ -45,9 +48,9 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={signupFunc}>
-        <label htmlFor="firstName">first name:</label>
+        <label htmlFor="firstName">First name:</label>
         <br></br>
         <input
           type="text"
@@ -57,7 +60,7 @@ const SignUp = () => {
           onChange={(event) => setFirstName(event.target.value)}
         />
         <br></br>
-        <label htmlFor="lastName">last name:</label>
+        <label htmlFor="lastName">Last name:</label>
         <br></br>
         <input
           type="text"
@@ -67,7 +70,7 @@ const SignUp = () => {
           onChange={(event) => setLastName(event.target.value)}
         />
         <br></br>
-        <label htmlFor="city">city:</label>
+        <label htmlFor="city">City:</label>
         <br></br>
         <input
           type="text"
@@ -77,7 +80,7 @@ const SignUp = () => {
           onChange={(event) => setCity(event.target.value)}
         />
         <br></br>
-        <label htmlFor="zipCode">zip code:</label>
+        <label htmlFor="zipCode">Zip code:</label>
         <br></br>
         <input
           type="text"
@@ -87,7 +90,7 @@ const SignUp = () => {
           onChange={(event) => setZipCode(event.target.value)}
         />
         <br></br>
-        <label htmlFor="street">street:</label>
+        <label htmlFor="street">Street:</label>
         <br></br>
         <input
           type="text"
@@ -97,7 +100,7 @@ const SignUp = () => {
           onChange={(event) => setStreet(event.target.value)}
         />
         <br></br>
-        <label htmlFor="hoseNumber">house number:</label>
+        <label htmlFor="hoseNumber">House number:</label>
         <br></br>
         <input
           type="text"
@@ -107,7 +110,7 @@ const SignUp = () => {
           onChange={(event) => setHouseNumber(event.target.value)}
         />
         <br></br>
-        <label htmlFor="email">email:</label>
+        <label htmlFor="email">Email:</label>
         <br></br>
         <input
           type="text"
@@ -117,7 +120,7 @@ const SignUp = () => {
           onChange={(event) => setEmail(event.target.value)}
         />
         <br></br>
-        <label htmlFor="password">password:</label>
+        <label htmlFor="password">Password:</label>
         <br></br>
         <input
           type="password"
@@ -127,7 +130,18 @@ const SignUp = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         <br></br>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" className="btn btn-outline-dark" />
+        <br></br>
+        <label className="form-label">
+          Already have an account? Login here.
+        </label>
+        <br></br>
+        <Link to="/user/login">
+          <button className="btn btn-outline-dark" type="button">
+            Login
+          </button>
+        </Link>
+        <br></br>
       </form>
     </div>
   );

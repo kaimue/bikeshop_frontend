@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function LoginButton() {
+function ProfileButton() {
   return (
     <div>
-      <Link to="/user/login">
+      <Link to="/user/protected/profile">
         <button className="btn btn-outline-light" type="button">
-          Login
+          Profile
         </button>
       </Link>
     </div>
   );
 }
 
-export default LoginButton;
+export default ProfileButton;

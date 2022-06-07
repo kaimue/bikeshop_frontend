@@ -6,10 +6,10 @@ import "./App.css";
 import Cart from "./components/Cart/Cart.js";
 import SignUp from "./components/SignUp/SignUp.js";
 import { Layout } from "./components/Layout/Layout.js";
-
 import Categorie from "./components/Categorie/Categorie.js";
-import Products from "./components/Products/Products";
 import RandomProducts from "./components/RandomProducts/RandomProducts.js";
+import Profile from "./components/Profile/Profile.js";
+import Protected from "./components/Protected/Protected.js";
 
 const App = () => {
   return (
@@ -17,13 +17,16 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<RandomProducts />} />
-          <Route path="home/:_id" element={<SingleProduct />} />
+          <Route path="home/:id" element={<SingleProduct />} />
           <Route path="home/categorie/:categorie" element={<Categorie />} />
-        </Route>
-        <Route path="/user">
-          <Route path="cart" element={<Cart />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="/user">
+            <Route path="cart" element={<Cart />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="protected" element={<Protected />}>
+              <Route path="profile" element={<Profile />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </div>

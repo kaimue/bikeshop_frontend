@@ -1,28 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SingleProduct from "../SingleProduct/SingleProduct";
+import { useSelector } from "react-redux";
 
-function Products() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const url = "http://localhost:5000/products";
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          const data = await res.json();
-          setProducts(data);
-        } else {
-          console.error("Fetch error!");
-          alert("There has been an error!");
-        }
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-    fetchProducts();
-  }, []);
+function DisplayedProducts() {
+  const products = useSelector((state) => state.products.products);
 
   const displayedProducts = () => {
     if (products.length === 0) {
@@ -52,4 +33,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default DisplayedProducts;

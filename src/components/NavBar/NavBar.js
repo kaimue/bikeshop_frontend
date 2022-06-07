@@ -1,18 +1,42 @@
 import Searchbar from "../Searchbar/Searchbar";
 import CartButton from "../CartButton/CartButton";
 import LoginButton from "../LoginButton/LoginButton";
+import LogoutButton from "../LogoutButton/LogoutButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 import Header from "../Header/Header";
 import ProductMenu from "../ProductMenu/ProductMenu";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
+    <nav
+      className="navbar navbar-expand-lg"
+      style={{ backgroundColor: "#292929" }}
+    >
+      <div className="col">
         <Header />
+      </div>
+      <div className="col">
         <ProductMenu />
+      </div>
+      <div className="col-6">
         <Searchbar />
-        <LoginButton />
+      </div>
+      {!isAuthenticated ? (
+        <div className="col">
+          <LoginButton />
+        </div>
+      ) : (
+        <div className="col">
+          <LogoutButton />
+        </div>
+      )}
+      <div className="col">
+        <ProfileButton />
+      </div>
+      <div className="col">
         <CartButton />
       </div>
     </nav>
