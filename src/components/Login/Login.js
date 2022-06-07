@@ -40,6 +40,7 @@ const Login = () => {
     <div className="card">
       <div className="container">
         <div className="mb-3 card-item">
+          <br></br>
           <form onSubmit={loginFunc}>
             <label htmlFor="email" className="form-label">
               Email:
@@ -74,6 +75,7 @@ const Login = () => {
             >
               Login
             </button>
+            <br></br>
             <br></br>
             <label htmlFor="signUp" className="form-label">
               No account yet? Sign up here.

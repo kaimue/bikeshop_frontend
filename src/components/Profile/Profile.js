@@ -44,11 +44,13 @@ const Profile = () => {
         <p>Site is loading...</p>
       ) : (
         <div className="container">
+          <br></br>
           <ul className="list-group">
             <li className="list-group-item">First name: {user.firstName}</li>
             <li className="list-group-item">Last name: {user.lastName}</li>
             <li className="list-group-item">Email: {user.email}</li>
           </ul>
+          <br></br>
           <ul className="list-group">
             <li className="list-group-item">Address:</li>
             <li className="list-group-item">City: {user.address.city}</li>
@@ -59,13 +61,14 @@ const Profile = () => {
               Street: {user.address.street},{user.address.houseNumber}
             </li>
           </ul>
+          <br></br>
+          <Link to="/user/signup">
+            <button className="btn btn-outline-dark" type="button">
+              Update my data
+            </button>
+          </Link>
         </div>
       )}
-      <Link to="/user/signup">
-        <button className="btn btn-outline-dark" type="button">
-          Update my data
-        </button>
-      </Link>
     </div>
   );
 };

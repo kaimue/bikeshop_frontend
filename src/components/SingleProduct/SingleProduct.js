@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/reducers/products";
 import { setCart } from "../../redux/reducers/cart";
 import { Link } from "react-router-dom";
+import { act } from "@testing-library/react";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function SingleProduct() {
     const action = setCart(products);
     console.log(action);
     dispatch(setCart(products));
-    console.log(cartProducts);
+    console.log(`cart${cartProducts}`);
   };
 
   const displayedProducts = () => {
@@ -53,6 +54,8 @@ function SingleProduct() {
       return (
         <div className="card">
           <div className="card-header">
+            <br></br>
+
             <h1>{products.title}</h1>
           </div>
           <div className="card-body">
@@ -68,12 +71,16 @@ function SingleProduct() {
             >
               Add to cart
             </button>
+            <br></br>
+            <br></br>
+            <br></br>
           </div>
         </div>
       );
     } else if (Array.isArray(products)) {
       return (
         <div className="container">
+          <br></br>
           <div className="row">
             {products.map((product) => (
               <div className="col">
@@ -94,6 +101,9 @@ function SingleProduct() {
               </div>
             ))}
           </div>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
       );
     }

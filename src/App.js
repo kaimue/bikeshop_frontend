@@ -10,6 +10,7 @@ import Categorie from "./components/Categorie/Categorie.js";
 import RandomProducts from "./components/RandomProducts/RandomProducts.js";
 import Profile from "./components/Profile/Profile.js";
 import Protected from "./components/Protected/Protected.js";
+import Checkout from "./components/Checkout/Checkout.js";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="protected" element={<Protected />}>
               <Route path="profile" element={<Profile />} />
             </Route>

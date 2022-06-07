@@ -7,13 +7,15 @@ export const cartSlice = createSlice({
   },
   reducers: {
     setCart: (state, action) => {
-      const copy = state.cartProducts.slice();
-      copy.push(action.payload);
-      state.cartProducts = copy;
+      state.cartProducts = [...state.cartProducts, action.payload];
+    },
+    setCartDeleted: (state, action) => {
+      state.cartProducts = action.payload;
     },
   },
 });
 
 export const { setCart } = cartSlice.actions;
+export const { setCartDeleted } = cartSlice.actions;
 
 export default cartSlice.reducer;

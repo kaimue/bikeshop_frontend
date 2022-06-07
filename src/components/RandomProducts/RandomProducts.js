@@ -8,7 +8,6 @@ const RandomProducts = (displayedProducts) => {
   const products = useSelector((state) => state.products.products);
   console.log(products);
   const [loading, setLoading] = useState(true);
-  const [render, setRender] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,7 +30,7 @@ const RandomProducts = (displayedProducts) => {
       }
     };
     fetchProducts();
-  }, [render]);
+  }, []);
 
   const renderFunc = () => {
     if (loading) {
@@ -44,7 +43,8 @@ const RandomProducts = (displayedProducts) => {
       return "No products found!!";
     } else {
       return (
-        <div className="container">
+        <div className="container-fluid">
+          <br></br>
           <div className="row">
             {products.map((product) => (
               <div className="col">
@@ -65,6 +65,9 @@ const RandomProducts = (displayedProducts) => {
               </div>
             ))}
           </div>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
       );
     }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function CartButton() {
   return (
-    <div>
+    <div className="container">
       <Link to="/user/cart">
         <button className="btn btn-outline-light" type="button">
           Cart

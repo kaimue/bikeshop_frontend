@@ -12,7 +12,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg"
+      className="navbar navbar-expand-lg static-top"
       style={{ backgroundColor: "#292929" }}
     >
       <div className="col">
@@ -21,7 +21,7 @@ const NavBar = () => {
       <div className="col">
         <ProductMenu />
       </div>
-      <div className="col-6">
+      <div className="col-4">
         <Searchbar />
       </div>
       {!isAuthenticated ? (
