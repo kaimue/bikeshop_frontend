@@ -13,6 +13,10 @@ function Cart() {
   const decoded = jwtDecode(token);
   console.log(decoded);
 
+  const sum = cartProducts.reduce((accumulator, object) => {
+    return accumulator + object.price;
+  }, 4.99);
+
   const postOrder = async (event) => {
     event.preventDefault();
     try {
@@ -46,7 +50,7 @@ function Cart() {
       return (
         <div className="container">
           <br></br>
-          <p>No products found...</p>
+          <p>There are no products in your cart. Start shopping now!</p>
         </div>
       );
     } else if (Array.isArray(cartProducts)) {
@@ -80,6 +84,8 @@ function Cart() {
               </div>
             ))}
           </div>
+          <li className="list-group-item">Shipping costs: 4,99€</li>
+          <li className="list-group-item">Total Price: {sum}€</li>
           <br></br>
           <button
             className="btn btn-outline-primary"
@@ -88,6 +94,11 @@ function Cart() {
           >
             Buy now!
           </button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
       );
     }

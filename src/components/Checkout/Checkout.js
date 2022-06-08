@@ -3,24 +3,43 @@ import { useSelector } from "react-redux";
 
 function Checkout() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-
+  const sum = cartProducts.reduce((accumulator, object) => {
+    return accumulator + object.price;
+  }, 4.99);
   return (
     <div className="container">
-      <p>Thanks for your purchase!</p>
-      <p>Please pay to the PayPal kaisbikeshop@shop.com</p>
-      <p>
-        Calculate the sum yourself. It will help you to keep you brain trained.
-      </p>
-      <p>
-        {cartProducts.products.map((product) => {
-          return (
+      <br></br>
+      <br></br>
+      <ul>
+        <li className="list-group-item">Thanks for your purchase!</li>
+
+        <br></br>
+        <div>
+          {cartProducts.map((product) => (
             <div>
-              <p>{product.title}</p>
-              <p>{product.price}</p>
+              <li className="list-group-item">{product.title}</li>
+              <li className="list-group-item">{product.price} €</li>
+
+              <li className="list-group-item"></li>
+
+              <br></br>
             </div>
-          );
-        })}
-      </p>
+          ))}
+        </div>
+        <li className="list-group-item">Shipping costs: 4,99€</li>
+        <br></br>
+        <li className="list-group-item">Total Price: {sum}€</li>
+        <br></br>
+        <li className="list-group-item">
+          Please pay to the PayPal address kaisbikeshop@shop.com
+        </li>
+      </ul>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 }
