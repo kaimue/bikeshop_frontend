@@ -60,11 +60,6 @@ const Profile = () => {
             </li>
           </ul>
           <br></br>
-          <Link to="/user/signup">
-            <button className="btn btn-outline-dark" type="button">
-              Update my data
-            </button>
-          </Link>
         </div>
       )}
     </div>
