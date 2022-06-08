@@ -19,7 +19,7 @@ const SignUp = () => {
   const signupFunc = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/user/signup", {
+      const res = await fetch("https://kais-bikeshop-backend.herokuapp.com/user/signup", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

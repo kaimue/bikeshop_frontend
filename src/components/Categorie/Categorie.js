@@ -13,7 +13,7 @@ function Categorie() {
 
   useEffect(() => {
     const getCategorie = async () => {
-      const url = `http://localhost:5000/products/categorie/${categorie}`;
+      const url = `https://kais-bikeshop-backend.herokuapp.com/products/categorie/${categorie}`;
       try {
         setLoading(true);
         const res = await fetch(url);

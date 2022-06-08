@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const url = `http://localhost:5000/user/${decoded.id}`;
+      const url = `https://kais-bikeshop-backend.herokuapp.com/user/${decoded.id}`;
       try {
         setLoading(true);
         const res = await fetch(url, {

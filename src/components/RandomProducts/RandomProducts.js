@@ -10,7 +10,7 @@ const RandomProducts = (displayedProducts) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = "http://localhost:5000/products/randomProducts";
+      const url = "https://kais-bikeshop-backend.herokuapp.com/products/randomProducts";
       try {
         setLoading(true);
         const res = await fetch(url);

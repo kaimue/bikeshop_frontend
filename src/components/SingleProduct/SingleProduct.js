@@ -13,7 +13,7 @@ function SingleProduct() {
 
   useEffect(() => {
     const searchProducts = async () => {
-      const url = `http://localhost:5000/products/single/${id}`;
+      const url = `https://kais-bikeshop-backend.herokuapp.com/products/single/${id}`;
       try {
         setLoading(true);
         const res = await fetch(url);
