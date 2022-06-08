@@ -3,23 +3,39 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCartDeleted } from "../../redux/reducers/cart";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.token);
+  const decoded = jwtDecode(token);
+  console.log(decoded);
 
-  const deleteCartProductById = (id) => {
-    console.log("App deleted!");
-    console.log(id);
-    const deleteProduct = cartProducts.filter((product) => {
-      return product._id !== id;
-    });
-    dispatch(setCartDeleted(deleteProduct));
-  };
-
-  const checkout = () => {
-    navigate("/user/checkout");
+  const postOrder = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/order/order", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          products: cartProducts,
+          userId: decoded.id,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+      } else {
+        console.error("Fetch error!");
+        alert("There has been an error!");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+    //navigate("/user/checkout");
   };
 
   const displayedProducts = () => {
@@ -27,76 +43,54 @@ function Cart() {
       return (
         <div className="container">
           <br></br>
-          <p>There are no products in your cart</p>
+          <p>No products found...</p>
         </div>
       );
     } else if (Array.isArray(cartProducts)) {
       return (
         <div className="container">
-          <div className="row">
+          <br></br>
+          <div>
             {cartProducts.map((product) => (
               <div>
-                <Link
-                  to={product.title}
-                  className="list-group-item list-group-item-action"
-                >
-                  <div className="container border">
-                    <h1>{product.title}</h1>
-                    <p>{product.price} €</p>
-                  </div>
-                </Link>
-                <button
-                  className="btn btn-outline-dark"
-                  type="button"
-                  onClick={deleteCartProductById(product._id)}
-                >
-                  Delete from cart
-                </button>
-                <button
-                  className="btn btn-outline-primary"
-                  type="button"
-                  onClick={checkout}
-                >
-                  Delete from cart
-                </button>
+                <ul className="list-group">
+                  <Link
+                    to={`/${product._id}`}
+                    className="list-group-item list-group-item-action"
+                  >
+                    <li className="list-group-item">{product.title}</li>
+                    <li className="list-group-item">{product.price} €</li>
+                  </Link>
+                  <li className="list-group-item">
+                    <button
+                      className="btn btn-outline-dark"
+                      type="button"
+                      onClick={() => {
+                        dispatch(setCartDeleted(product._id));
+                      }}
+                    >
+                      Delete from cart
+                    </button>
+                  </li>
+                </ul>
+                <br></br>
               </div>
             ))}
           </div>
-        </div>
-      );
-    } else if (!Array.isArray(cartProducts)) {
-      return (
-        <div className="container">
-          <div className="row">
-            <div>
-              <Link
-                to={cartProducts.title}
-                className="list-group-item list-group-item-action"
-              >
-                <div className="container border">
-                  <h1>{cartProducts.title}</h1>
-                  <p>{cartProducts.price} €</p>
-                </div>
-              </Link>
-              <button
-                className="btn btn-outline-dark"
-                type="button"
-                onClick={deleteCartProductById(cartProducts._id)}
-              >
-                Delete from cart
-              </button>
-            </div>
-          </div>
+          <br></br>
+          <button
+            className="btn btn-outline-primary"
+            type="button"
+            onClick={postOrder}
+          >
+            Buy now!
+          </button>
         </div>
       );
     }
   };
 
-  return (
-    <div className="container">
-      <div>{displayedProducts()}</div>
-    </div>
-  );
+  return <div className="container">{displayedProducts()}</div>;
 }
 
 export default Cart;

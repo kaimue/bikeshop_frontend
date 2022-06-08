@@ -4,10 +4,10 @@ const ProductMenu = () => {
   return (
     <div className="container">
       <div className="row">
-        <Link to="/home/categorie/bikes">
+        <Link to="/categorie/bikes">
           <button className="btn btn-outline-light col">Bikes</button>
         </Link>
-        <Link to="/home/categorie/parts">
+        <Link to="/categorie/parts">
           <button className="btn btn-outline-light col">Parts</button>
         </Link>
       </div>

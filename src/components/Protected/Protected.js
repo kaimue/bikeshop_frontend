@@ -7,7 +7,7 @@ const Protected = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        {isAuthenticated ? <Outlet /> : <Navigate to="/home" />}
+        {isAuthenticated ? <Outlet /> : <Navigate to="/" />}
       </div>
     </nav>
   );

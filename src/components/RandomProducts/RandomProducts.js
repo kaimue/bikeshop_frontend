@@ -6,7 +6,6 @@ import { setProducts } from "../../redux/reducers/products";
 const RandomProducts = (displayedProducts) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  console.log(products);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const RandomProducts = (displayedProducts) => {
         console.log(res);
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
           dispatch(setProducts(data));
           setLoading(false);
         } else {
@@ -40,7 +38,11 @@ const RandomProducts = (displayedProducts) => {
         </div>
       );
     } else if (products.length === 0) {
-      return "No products found!!";
+      return (
+        <div className="container">
+          <p>"No products found!!"</p>
+        </div>
+      );
     } else {
       return (
         <div className="container-fluid">
@@ -48,9 +50,11 @@ const RandomProducts = (displayedProducts) => {
           <div className="row">
             {products.map((product) => (
               <div className="col">
+                <br></br>
                 <Link
                   to={product._id}
                   className="list-group-item list-group-item-action"
+                  style={{ backgroundColor: "#f7f7f7" }}
                 >
                   <div>
                     <h2>{product.title}</h2>

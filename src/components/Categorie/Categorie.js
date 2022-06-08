@@ -17,7 +17,7 @@ function Categorie() {
       try {
         setLoading(true);
         const res = await fetch(url);
-        console.log(res);
+
         if (res.ok) {
           const data = await res.json();
           dispatch(setProducts(data));
@@ -42,9 +42,12 @@ function Categorie() {
           <div className="row">
             {products.map((product) => (
               <div className="col">
+                <br></br>
+
                 <Link
-                  to={`/home/${product._id}`}
+                  to={`/${product._id}`}
                   className="list-group-item list-group-item-action"
+                  style={{ backgroundColor: "#f7f7f7" }}
                 >
                   <div>
                     <h2>{product.title}</h2>
@@ -56,6 +59,7 @@ function Categorie() {
                     <p>{product.price} €</p>
                   </div>
                 </Link>
+                <br></br>
               </div>
             ))}
           </div>

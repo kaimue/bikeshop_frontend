@@ -10,7 +10,7 @@ function LoginButton() {
 
   return (
     <div className="container">
-      <Link to="/home">
+      <Link to="/">
         <button
           className="btn btn-outline-light"
           type="button"

@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../redux/reducers/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.auth.token);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginFunc = async (event) => {
-    console.log("login");
     event.preventDefault();
     try {
       const res = await fetch("http://localhost:5000/user/login", {
@@ -33,7 +31,7 @@ const Login = () => {
     } catch (error) {
       console.error(error.message);
     }
-    navigate("/home");
+    navigate("/");
   };
 
   return (

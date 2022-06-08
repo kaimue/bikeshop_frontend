@@ -13,7 +13,7 @@ const NavBar = () => {
   return (
     <nav
       className="navbar navbar-expand-lg static-top"
-      style={{ backgroundColor: "#292929" }}
+      style={{ backgroundColor: "#373a4d" }}
     >
       <div className="col">
         <Header />

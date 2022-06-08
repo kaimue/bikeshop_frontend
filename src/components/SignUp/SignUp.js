@@ -17,7 +17,6 @@ const SignUp = () => {
   const [houseNumber, setHouseNumber] = useState("");
 
   const signupFunc = async (event) => {
-    console.log("test signup");
     event.preventDefault();
     try {
       const res = await fetch("http://localhost:5000/user/signup", {

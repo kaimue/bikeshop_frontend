@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/reducers/products";
 import { setCart } from "../../redux/reducers/cart";
 import { Link } from "react-router-dom";
-import { act } from "@testing-library/react";
 
 function SingleProduct() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
@@ -19,10 +17,10 @@ function SingleProduct() {
       try {
         setLoading(true);
         const res = await fetch(url);
-        console.log(res);
+
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
+
           dispatch(setProducts(data));
           setLoading(false);
         } else {
@@ -38,9 +36,7 @@ function SingleProduct() {
 
   const addToCart = () => {
     const action = setCart(products);
-    console.log(action);
-    dispatch(setCart(products));
-    console.log(`cart${cartProducts}`);
+    dispatch(action);
   };
 
   const displayedProducts = () => {
@@ -80,13 +76,13 @@ function SingleProduct() {
     } else if (Array.isArray(products)) {
       return (
         <div className="container">
-          <br></br>
           <div className="row">
             {products.map((product) => (
               <div className="col">
                 <Link
-                  to={`/home/${product._id}`}
+                  to={`/${product._id}`}
                   className="list-group-item list-group-item-action"
+                  style={{ backgroundColor: "#f7f7f7" }}
                 >
                   <div>
                     <h2>{product.title}</h2>

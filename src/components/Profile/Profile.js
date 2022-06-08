@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import jwtDecode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
-  const decoded = "629737717fb502372a3d1540";
-  console.log(`decoded:${decoded}`);
+  const decoded = jwt_decode(token);
 
   useEffect(() => {
     const getUser = async () => {
-      const url = `http://localhost:5000/user/${decoded}`;
+      const url = `http://localhost:5000/user/${decoded.id}`;
       try {
         setLoading(true);
         const res = await fetch(url, {
@@ -24,7 +23,6 @@ const Profile = () => {
         });
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
           setUser(data);
           setLoading(false);
         } else {
