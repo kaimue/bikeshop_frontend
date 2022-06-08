@@ -9,9 +9,6 @@ function Cart() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
-  const decoded = jwtDecode(token);
-  console.log(decoded);
 
   const sum = cartProducts.reduce((accumulator, object) => {
     return accumulator + object.price;
