@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/reducers/auth";
 import { useNavigate } from "react-router-dom";
 
-function LoginButton() {
+function LogoutButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function LoginButton() {
             event.preventDefault();
             localStorage.removeItem("token");
             dispatch(logout());
-            navigate("/home");
+            navigate("/");
           }}
         >
           Logout
@@ -28,4 +28,4 @@ function LoginButton() {
   );
 }
 
-export default LoginButton;
+export default LogoutButton;

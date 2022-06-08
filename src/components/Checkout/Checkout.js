@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 function Checkout() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
@@ -11,9 +12,6 @@ function Checkout() {
       <br></br>
       <br></br>
       <ul>
-        <li className="list-group-item">Thanks for your purchase!</li>
-
-        <br></br>
         <div>
           {cartProducts.map((product) => (
             <div>
@@ -31,9 +29,30 @@ function Checkout() {
         <li className="list-group-item">Total Price: {sum}€</li>
         <br></br>
         <li className="list-group-item">
-          Please pay to the PayPal address kaisbikeshop@shop.com
+          <PayPalScriptProvider options={{ "client-id": "test" }}>
+            <PayPalButtons
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: "1.99",
+                      },
+                    },
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  const name = details.payer.name.given_name;
+                  alert(`Transaction completed by ${name}`);
+                });
+              }}
+            />
+          </PayPalScriptProvider>
         </li>
       </ul>
+
       <br></br>
       <br></br>
       <br></br>

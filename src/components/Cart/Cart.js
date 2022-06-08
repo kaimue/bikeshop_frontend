@@ -19,29 +19,6 @@ function Cart() {
 
   const postOrder = async (event) => {
     event.preventDefault();
-    try {
-      const res = await fetch(
-        "https://kais-bikeshop-backend.herokuapp.com/order/order",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            products: cartProducts,
-            userId: decoded.id,
-          }),
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-      } else {
-        console.error("Fetch error!");
-        alert("There has been an error!");
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
     navigate("/user/checkout");
   };
 

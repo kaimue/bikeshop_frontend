@@ -10,6 +10,7 @@ function SingleProduct() {
   const products = useSelector((state) => state.products.products);
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
+  const [button, setButton] = useState(true);
 
   useEffect(() => {
     const searchProducts = async () => {
@@ -37,6 +38,7 @@ function SingleProduct() {
   const addToCart = () => {
     const action = setCart(products);
     dispatch(action);
+    setButton(false);
   };
 
   const displayedProducts = () => {
@@ -59,14 +61,21 @@ function SingleProduct() {
 
             <p className="card-text">{products.description}</p>
             <p className="card-text">{products.price} €</p>
-
-            <button
-              className="btn btn-outline-primary"
-              type="button"
-              onClick={addToCart}
-            >
-              Add to cart
-            </button>
+            {button ? (
+              <button
+                className="btn btn-outline-primary"
+                type="button"
+                onClick={addToCart}
+              >
+                Add to cart
+              </button>
+            ) : (
+              <Link to="/user/cart">
+                <button className="btn btn-outline-dark" type="button">
+                  Cart
+                </button>
+              </Link>
+            )}
             <br></br>
             <br></br>
             <br></br>
