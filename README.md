@@ -1,4 +1,4 @@
-# bikeshop_backend
+# bikeshop_frontend
 
 This is the frontend for Kais Bikeshop, the final project of my WBS Coding School campus Phase June 2022.
 
