@@ -13,7 +13,7 @@ const Login = () => {
   const loginFunc = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch("https://kais-bikeshop-backend.herokuapp.com/user/login", {
+      const res = await fetch(`${process.env.APIURL}/user/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

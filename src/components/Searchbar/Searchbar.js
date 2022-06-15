@@ -9,7 +9,7 @@ const Searchbar = () => {
   useEffect(() => {
     if (wordQuery.length > 1) {
       const searchProducts = async () => {
-        const url = `https://kais-bikeshop-backend.herokuapp.com/products/search?q=${wordQuery}`;
+        const url = `${process.env.APIURL}/products/search?q=${wordQuery}`;
         try {
           const res = await fetch(url);
           if (res.ok) {
