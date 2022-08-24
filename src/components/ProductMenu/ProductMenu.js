@@ -3,12 +3,23 @@ import { Link } from "react-router-dom";
 const ProductMenu = () => {
   return (
     <div className="container">
-      <div className="row">
+      <div className="btn-group" role="group">
         <Link to="/categorie/bikes">
-          <button className="btn btn-outline-light col">Bikes</button>
+          <button type="button" className="btn btn-light">
+            Bikes
+          </button>
         </Link>
+        <p>.</p>
         <Link to="/categorie/parts">
-          <button className="btn btn-outline-light col">Parts</button>
+          <button type="button" className="btn btn-light">
+            Parts
+          </button>
+        </Link>
+        <p>.</p>
+        <Link to="/search">
+          <button className="btn btn-light" type="button">
+            Search
+          </button>
         </Link>
       </div>
     </div>

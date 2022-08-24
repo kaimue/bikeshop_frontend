@@ -1,59 +1,83 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import jwtDecode from "jwt-decode";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
-  const [order, setOrder] = useState({});
-  const [loading, setLoading] = useState(true);
-  const token = useSelector((state) => state.auth.token);
-  const decoded = jwtDecode(token);
-  console.log(order);
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
 
-  useEffect(() => {
-    const getOrder = async () => {
-      const url = `http://localhost:5000/order/${decoded.UserID}`;
-      try {
-        setLoading(true);
-        const res = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          console.log(data);
-          setOrder(data);
-          setLoading(false);
-        } else {
-          console.error("Fetch error!");
-          return "No user found!";
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getOrder();
-  }, []);
+  const amount = cartProducts.reduce((accumulator, object) => {
+    return accumulator + object.price;
+  }, 4.99);
+
+  const initialOptions = {
+    "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
+    currency: "EUR",
+  };
+
+  const navigate = useNavigate();
 
   return (
     <div className="container">
-      <p>Thanks for your purchase!</p>
-      <p>Please pay to the PayPal kaisbikeshop@shop.com</p>
-      <p>
-        Calculate the sum yourself. It will help you to keep you brain trained.
-      </p>
-      <p>
-        {order.products.map((product) => {
-          return (
+      <br></br>
+      <br></br>
+      <ul>
+        <div>
+          {cartProducts.map((product) => (
             <div>
-              <p>{product.title}</p>
-              <p>{product.price}</p>
+              <li className="list-group-item">{product.title}</li>
+              <li className="list-group-item">{product.price} €</li>
+
+              <li className="list-group-item"></li>
+
+              <br></br>
             </div>
-          );
-        })}
-      </p>
+          ))}
+        </div>
+        <li className="list-group-item">Shipping costs: 4,99€</li>
+        <br></br>
+        <li className="list-group-item">Total Price: {amount}€</li>
+        <br></br>
+        <li className="list-group-item text-center">
+          <PayPalScriptProvider options={initialOptions}>
+            <PayPalButtons
+              style={{
+                color: "silver",
+                tagline: false,
+              }}
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: amount,
+                      },
+                    },
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  const name = details.payer.name.given_name;
+                  navigate("/user/checkout/payed");
+                });
+              }}
+            />
+          </PayPalScriptProvider>
+        </li>
+      </ul>
+
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 }

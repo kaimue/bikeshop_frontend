@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const url = `http://localhost:5000/user/${decoded.id}`;
+      const url = `${process.env.REACT_APP_API_URL}user/${decoded.id}`;
       try {
         setLoading(true);
         const res = await fetch(url, {
@@ -60,11 +60,6 @@ const Profile = () => {
             </li>
           </ul>
           <br></br>
-          <Link to="/user/signup">
-            <button className="btn btn-outline-dark" type="button">
-              Update my data
-            </button>
-          </Link>
         </div>
       )}
     </div>

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/reducers/auth";
 import { useNavigate } from "react-router-dom";
 
-function LoginButton() {
+function LogoutButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,14 +18,19 @@ function LoginButton() {
             event.preventDefault();
             localStorage.removeItem("token");
             dispatch(logout());
-            navigate("/home");
+            navigate("/");
           }}
         >
           Logout
+        </button>
+      </Link>
+      <Link to="/user/protected/profile">
+        <button className="btn btn-outline-light" type="button">
+          Profile
         </button>
       </Link>
     </div>
   );
 }
 
-export default LoginButton;
+export default LogoutButton;

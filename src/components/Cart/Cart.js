@@ -3,39 +3,19 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCartDeleted } from "../../redux/reducers/cart";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
-  const decoded = jwtDecode(token);
-  console.log(decoded);
+
+  const sum = cartProducts.reduce((accumulator, object) => {
+    return accumulator + object.price;
+  }, 4.99);
 
   const postOrder = async (event) => {
     event.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/order/order", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          products: cartProducts,
-          userId: decoded.id,
-        }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-      } else {
-        console.error("Fetch error!");
-        alert("There has been an error!");
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-    //navigate("/user/checkout");
+    navigate("/user/checkout");
   };
 
   const displayedProducts = () => {
@@ -43,7 +23,7 @@ function Cart() {
       return (
         <div className="container">
           <br></br>
-          <p>No products found...</p>
+          <p>There are no products in your cart. Start shopping now!</p>
         </div>
       );
     } else if (Array.isArray(cartProducts)) {
@@ -77,6 +57,8 @@ function Cart() {
               </div>
             ))}
           </div>
+          <li className="list-group-item">Shipping costs: 4,99€</li>
+          <li className="list-group-item">Total Price: {sum}€</li>
           <br></br>
           <button
             className="btn btn-outline-primary"
@@ -85,6 +67,11 @@ function Cart() {
           >
             Buy now!
           </button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
       );
     }
