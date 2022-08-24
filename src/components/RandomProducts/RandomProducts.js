@@ -10,7 +10,7 @@ const RandomProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = `${process.env.REACT_APP_API_URL}products/randomProducts`;
+      const url = `${process.env.REACT_APP_API_URL}/products/randomProducts`;
       try {
         setLoading(true);
         const res = await fetch(url);
