@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/reducers/products";
 
-const RandomProducts = (displayedProducts) => {
+const RandomProducts = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = `${process.env.APIURL}/products/randomProducts`;
+      const url = `http://localhost:5000/products/randomProducts`;
       try {
         setLoading(true);
         const res = await fetch(url);

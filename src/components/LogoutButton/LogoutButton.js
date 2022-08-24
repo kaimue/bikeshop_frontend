@@ -24,6 +24,11 @@ function LogoutButton() {
           Logout
         </button>
       </Link>
+      <Link to="/user/protected/profile">
+        <button className="btn btn-outline-light" type="button">
+          Profile
+        </button>
+      </Link>
     </div>
   );
 }

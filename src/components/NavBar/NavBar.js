@@ -1,4 +1,3 @@
-import Searchbar from "../Searchbar/Searchbar";
 import CartButton from "../CartButton/CartButton";
 import LoginButton from "../LoginButton/LoginButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
@@ -21,9 +20,6 @@ const NavBar = () => {
       <div className="col">
         <ProductMenu />
       </div>
-      <div className="col-4">
-        <Searchbar />
-      </div>
       {!isAuthenticated ? (
         <div className="col">
           <LoginButton />
@@ -33,9 +29,7 @@ const NavBar = () => {
           <LogoutButton />
         </div>
       )}
-      <div className="col">
-        <ProfileButton />
-      </div>
+
       <div className="col">
         <CartButton />
       </div>

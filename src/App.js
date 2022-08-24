@@ -11,6 +11,8 @@ import RandomProducts from "./components/RandomProducts/RandomProducts.js";
 import Profile from "./components/Profile/Profile.js";
 import Protected from "./components/Protected/Protected.js";
 import Checkout from "./components/Checkout/Checkout.js";
+import CheckoutFinished from "./components/Checkout/Checkout.js";
+import Searchbar from "./components/Searchbar/Searchbar.js";
 
 const App = () => {
   return (
@@ -20,11 +22,13 @@ const App = () => {
           <Route path="" element={<RandomProducts />} />
           <Route path="/:id" element={<SingleProduct />} />
           <Route path="/categorie/:categorie" element={<Categorie />} />
+          <Route path="/search" element={<Searchbar />} />
           <Route path="/user">
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="checkout/payed" element={<CheckoutFinished />} />
             <Route path="protected" element={<Protected />}>
               <Route path="profile" element={<Profile />} />
             </Route>

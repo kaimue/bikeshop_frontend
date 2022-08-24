@@ -1,12 +1,27 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const sum = cartProducts.reduce((accumulator, object) => {
+
+  const amount = cartProducts.reduce((accumulator, object) => {
     return accumulator + object.price;
   }, 4.99);
+
+  const initialOptions = {
+    "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
+    currency: "EUR",
+  };
+
+  const navigate = useNavigate();
+
   return (
     <div className="container">
       <br></br>
@@ -26,17 +41,21 @@ function Checkout() {
         </div>
         <li className="list-group-item">Shipping costs: 4,99€</li>
         <br></br>
-        <li className="list-group-item">Total Price: {sum}€</li>
+        <li className="list-group-item">Total Price: {amount}€</li>
         <br></br>
-        <li className="list-group-item">
-          <PayPalScriptProvider options={{ "client-id": "test" }}>
+        <li className="list-group-item text-center">
+          <PayPalScriptProvider options={initialOptions}>
             <PayPalButtons
+              style={{
+                color: "silver",
+                tagline: false,
+              }}
               createOrder={(data, actions) => {
                 return actions.order.create({
                   purchase_units: [
                     {
                       amount: {
-                        value: "1.99",
+                        value: amount,
                       },
                     },
                   ],
@@ -45,7 +64,7 @@ function Checkout() {
               onApprove={(data, actions) => {
                 return actions.order.capture().then((details) => {
                   const name = details.payer.name.given_name;
-                  alert(`Transaction completed by ${name}`);
+                  navigate("/user/checkout/payed");
                 });
               }}
             />

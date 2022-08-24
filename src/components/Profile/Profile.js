@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const url = `${process.env.APIURL}/user/${decoded.id}`;
+      const url = `${process.env.REACT_APP_API_URL}user/${decoded.id}`;
       try {
         setLoading(true);
         const res = await fetch(url, {

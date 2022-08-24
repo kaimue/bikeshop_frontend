@@ -5,8 +5,8 @@ const Footer = () => {
       style={{ backgroundColor: "#373a4d" }}
     >
       <p>
-        © 2022 | Kais Bikeshop | Website created with React, Redux, Node
-        Express, Mongoose
+        © 2022 | Kais Bikeshop | Website created with JavaScript / React,
+        Node.js / Express, MongoDB / Mongoose
       </p>
     </div>
   );
