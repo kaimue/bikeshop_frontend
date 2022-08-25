@@ -63,8 +63,7 @@ function Checkout() {
               }}
               onApprove={(data, actions) => {
                 return actions.order.capture().then((details) => {
-                  const name = details.payer.name.given_name;
-                  navigate("/user/checkout/payed");
+                  navigate("/user/payed");
                 });
               }}
             />
